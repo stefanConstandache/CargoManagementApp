@@ -1,14 +1,29 @@
-<div *ngIf="!isSignedIn">
-  <h2>Sign Up</h2>
-  <input type="text" #emailSignup/>
-  <input type="text" #passwordSignup/>
-  <button (click)="onSignup(emailSignup.value, passwordSignup.value)">Sign up</button>
+<mat-toolbar color="primary">
+  Welcome to our platform
+
+  <ng-container *ngIf="authService.currentUser | async as user; else loginButton">
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+      {{user.email}}
+      <mat-icon>expand_more</mat-icon>
+    </button>
+  </ng-container>
+
+  <ng-template #loginButton>
+    <button mat-button routerLink="/login">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+  </ng-template>
+</mat-toolbar>
+
+<div class="content">
+  <router-outlet></router-outlet>
 </div>
-<hr>
-<div *ngIf="!isSignedIn">
-  <h2>Sign In</h2>
-  <input type="text" #email/>
-  <input type="text" #password/>
-  <button (click)="onSignin(email.value, password.value)">Sign in</button>
-</div>
-<app-home *ngIf="isSignedIn" (isLogout)="handleLogout()"></app-home>
+
+<mat-menu #userMenu="matMenu">
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+</mat-menu>

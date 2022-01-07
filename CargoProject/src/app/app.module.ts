@@ -1,36 +1,56 @@
 import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select'
+import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LandingComponent } from './components/landing/landing.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { HomeComponent } from './components/home/home.component';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { FirebaseService } from './services/firebase.service';
-
-const config = {
-  apiKey: "AIzaSyA7luWGbMhIgXImE-ZnHWwWljs35kK6GRg",
-  authDomain: "cargo-management-4e50a.firebaseapp.com",
-  projectId: "cargo-management-4e50a",
-  storageBucket: "cargo-management-4e50a.appspot.com",
-  messagingSenderId: "1097151939401",
-  appId: "1:1097151939401:web:9a6e54511306e455825098",
-  measurementId: "G-BG7G8D3TDQ"
-}
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent
+    AppComponent, LoginComponent, SignUpComponent, LandingComponent, HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(config),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase()),
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    HotToastModule.forRoot(),
   ],
-  providers: [FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
