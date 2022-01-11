@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CrudService } from 'src/app/services/crud.service';
 
 export function passwordMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -27,6 +27,8 @@ export function passwordMatchValidator(): ValidatorFn {
 })
 export class SignUpComponent implements OnInit {
 
+  user = this.authService.currentUser;
+
   signUpForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -38,7 +40,7 @@ export class SignUpComponent implements OnInit {
   constructor(private authService: AuthenticationService,
     private router: Router,
     private toast: HotToastService,
-    private firestore: AngularFirestore,
+    private crud: CrudService,
   ) { }
 
   ngOnInit(): void {
@@ -70,20 +72,14 @@ export class SignUpComponent implements OnInit {
     }
 
     const { name, userType, email, password } = this.signUpForm.value;
-    this.authService.signUp(name, email, password).pipe(
+    this.authService.signUp(email, password).pipe(
       this.toast.observe({
         success: 'Congrats! You are all signed up',
         loading: 'Signing up...',
         error: ({ message }) => `${message}`
       })
     ).subscribe(() => {
-      let User = {
-        name: name,
-        email: email,
-        userType: userType,
-      };
-
-      this.firestore.collection("Users").add(User);
+      this.crud.create(name, email, userType);
       this.router.navigate(['/home']);
     });
   }

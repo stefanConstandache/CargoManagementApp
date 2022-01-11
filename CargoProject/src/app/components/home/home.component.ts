@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CrudService } from 'src/app/services/crud.service';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +8,10 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class HomeComponent implements OnInit {
 
-  user = this.authService.currentUser;
-
-  constructor(private authService: AuthenticationService) { }
-
-  ngOnInit(): void {
+  constructor(private crud: CrudService) {
   }
 
+  ngOnInit(): void {
+    this.crud.redirect();
+  }
 }

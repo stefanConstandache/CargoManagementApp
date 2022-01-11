@@ -11,10 +11,8 @@ import { MatSelectModule } from '@angular/material/select'
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { HomeComponent } from './components/home/home.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
@@ -24,10 +22,16 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { ClientdashboardComponent } from './components/dashboards/clientdashboard/clientdashboard.component';
+import { AdmindashboardComponent } from './components/dashboards/admindashboard/admindashboard.component';
+import { CargodashboardComponent } from './components/dashboards/cargodashboard/cargodashboard.component';
+import { HomeComponent } from './components/home/home.component';
+import { CrudService } from './services/crud.service';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, SignUpComponent, LandingComponent, HomeComponent,
+    AppComponent, LoginComponent, SignUpComponent, ClientdashboardComponent, AdmindashboardComponent, CargodashboardComponent, HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     ReactiveFormsModule,
     HotToastModule.forRoot(),
   ],
+  providers: [CrudService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

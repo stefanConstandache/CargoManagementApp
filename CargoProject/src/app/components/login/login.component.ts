@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { CrudService } from 'src/app/services/crud.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private crud: CrudService,
   ) { }
 
   ngOnInit(): void {

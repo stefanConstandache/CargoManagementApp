@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class AuthenticationService {
 
   constructor(private auth: Auth) { }
 
-  signUp(name: string, email: string, password: string): Observable<any> {
+  signUp(email: string, password: string): Observable<any> {
     return from(
       createUserWithEmailAndPassword(this.auth, email, password)
     );
