@@ -1,26 +1,26 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { setDefaultOptions, loadModules } from 'esri-loader';
 // import { Subscription } from "rxjs";
 
 @Component({
-    selector: "app-esri-map",
+    selector: "app-map",
     templateUrl: "./map.component.html",
     styleUrls: ["./map.component.css"]
 })
-export class ArcGISMapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit {
     // The <div> where we will place the map
-    @ViewChild("mapViewNode", { static: true }) private mapViewEl: ElementRef;
+    @ViewChild("mapViewNode", { static: true }) private mapViewEl?: ElementRef;
 
     timeoutHandler = null;
 
-    _Map;
-    _MapView;
-    _FeatureLayer;
-    _Graphic;
-    _GraphicsLayer;
-    _Route;
-    _RouteParameters;
-    _FeatureSet;
+    _Map: any;
+    _MapView: any;
+    _FeatureLayer: any;
+    _Graphic: any;
+    _GraphicsLayer: any;
+    _Route: any;
+    _RouteParameters: any;
+    _FeatureSet: any;
 
     map: __esri.Map;
     view: __esri.MapView;
@@ -42,7 +42,24 @@ export class ArcGISMapComponent implements OnInit, OnDestroy {
     constructor(
         // private fbs: FirebaseService
         //private fbs: FirebaseMockService
-    ) { }
+    ) { 
+        this.map = new this._Map({
+            basemap: "streets-navigation-vector"
+        });
+
+        this.view = new this._MapView({
+            container: this.mapViewEl?.nativeElement,
+            map: this.map,
+            center: this.pointCoords,
+            zoom: 12
+        });
+
+        this.pointGraphic = new this._GraphicsLayer();
+        this.graphicsLayer = new this._GraphicsLayer();
+        this.route = new this._Route();
+        this.routeParameter = new this._RouteParameters();
+        this.featureSet = new this._FeatureSet();
+    }
 
     // connectFirebase() {
     //     if (this.isConnected) {
@@ -112,7 +129,7 @@ export class ArcGISMapComponent implements OnInit, OnDestroy {
 
             // Initialize the MapView
             const mapViewProperties = {
-                container: this.mapViewEl.nativeElement,
+                container: this.mapViewEl?.nativeElement,
                 center: [-118.73682450024377, 34.07817583063242],
                 zoom: 10,
                 map: this.map
@@ -151,7 +168,7 @@ export class ArcGISMapComponent implements OnInit, OnDestroy {
         }
     }
 
-    addGraphic(type, point) {
+    addGraphic(type: string, point: any) {
         const graphic = new this._Graphic({
             symbol: {
                 type: "simple-marker",
@@ -195,7 +212,7 @@ export class ArcGISMapComponent implements OnInit, OnDestroy {
                     const features = data.routeResults[0].directions.features;
 
                     // Show each direction
-                    features.forEach((result) => {
+                    features.forEach((result: { attributes: { text: string; length: number; }; }) => {
                         const direction = document.createElement("li");
                         direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
                         directions.appendChild(direction);
@@ -207,7 +224,7 @@ export class ArcGISMapComponent implements OnInit, OnDestroy {
 
             })
 
-            .catch((error) => {
+            .catch((error: any) => {
                 console.log(error);
             })
 
@@ -331,7 +348,7 @@ export class ArcGISMapComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         if (this.view) {
             // destroy the map view
-            this.view.container = null;
+            // this.view.container = null;
         }
         this.stopTimer();
         // this.disconnectFirebase();
