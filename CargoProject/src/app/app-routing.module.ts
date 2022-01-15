@@ -8,6 +8,8 @@ import { ClientdashboardComponent } from './components/dashboards/clientdashboar
 import { CargodashboardComponent } from './components/dashboards/cargodashboard/cargodashboard.component';
 import { AdmindashboardComponent } from './components/dashboards/admindashboard/admindashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
+import { ClientOffersComponent } from './components/client-offers/client-offers.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectToHome = () => redirectLoggedInTo(['home']);
@@ -31,12 +33,22 @@ const routes: Routes = [
   {
     path: 'client',
     component: ClientdashboardComponent,
-    ...canActivate(redirectToLogin)
+    ...canActivate(redirectToLogin),
+    children: [
+      { path: 'clientOffers', component: ClientOffersComponent },
+      { path: 'transporterOffers', component: SellerOffersComponent },
+      { path: '', redirectTo: 'clientOffers', pathMatch: 'full' },
+    ]
   },
   {
     path: 'cargo',
     component: CargodashboardComponent,
-    ...canActivate(redirectToLogin)
+    ...canActivate(redirectToLogin),
+    children: [
+      { path: 'transporterOffers', component: SellerOffersComponent },
+      { path: 'clientOffers', component: ClientOffersComponent },
+      { path: '', redirectTo: 'transporterOffers', pathMatch: 'full' },
+    ]
   },
   {
     path: 'admin',

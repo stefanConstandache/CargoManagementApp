@@ -1,0 +1,77 @@
+<h1>Clients Offers</h1>
+<div class="search-div">
+    <button mat-raised-button (click)="onCreate()" *ngIf="isClient">
+        <mat-icon>add</mat-icon> Create New Offer
+    </button>
+    <mat-form-field class="search-form-field" floatLabel="never">
+        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="clientsOffersList" matSort>
+        <ng-container matColumnDef="actions" *ngIf="isSeller">
+            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-raised-button color="primary">Take Offer</button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Client Name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="mobile">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Client Mobile Number</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.mobile}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="departureDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Departure Date</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.departureDate.toDate() | date: "MMM d yyyy"}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="arrivalDate" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Arrival Date</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.arrivalDate.toDate() | date: "MMM d yyyy"}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="departureLocation">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Departure Location</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.departureLocation}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="arrivalLocation">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Arrival Location</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.arrivalLocation}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cargoType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Cargo Type</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.cargoType}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="volume">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Volume</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.volume}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="weight">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.weight}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="budget">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Budget</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.budget}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+                Loading data...
+            </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+                No data.
+            </mat-footer-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':clientsOffersList!=null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(clientsOffersList!=null && clientsOffersList.data.length==0)}"></mat-footer-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

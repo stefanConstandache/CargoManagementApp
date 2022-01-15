@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { CrudService } from 'src/app/services/crud.service';
+import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-cargodashboard',
@@ -9,15 +11,28 @@ import { CrudService } from 'src/app/services/crud.service';
 })
 export class CargodashboardComponent implements OnInit {
 
-  user = this.auth.currentUser;
-  userData: any;
+  user = this.auth.currentUser
 
-  constructor(private auth: Auth, private crud: CrudService) {
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private toast: HotToastService,
+    private authService: AuthenticationService,
+  ) {
+  }
+
+  logout() {
+    this.authService.logout().pipe(
+      this.toast.observe({
+        success: 'Logged out successfully',
+        loading: 'Logging out...',
+        error: ({ message }) => `There was an error: ${message} `
+      })
+    ).subscribe(() => {
+      this.router.navigate(['']);
+    });
   }
 
   ngOnInit(): void {
-    this.crud.userData.subscribe((data) => {
-      this.userData = data;
-    })
   }
 }

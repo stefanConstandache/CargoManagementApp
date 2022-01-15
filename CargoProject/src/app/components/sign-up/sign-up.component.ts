@@ -79,7 +79,7 @@ export class SignUpComponent implements OnInit {
         error: ({ message }) => `${message}`
       })
     ).subscribe(() => {
-      this.crud.create(name, email, userType);
+      this.crud.createUser(name, email, userType);
       this.router.navigate(['/home']);
     });
   }

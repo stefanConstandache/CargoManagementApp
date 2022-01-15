@@ -1,0 +1,112 @@
+<form [formGroup]="sellerForm" class="normal-form" (ngSubmit)="submit()">
+    <mat-grid-list cols="9" rowHeight="400px">
+        <mat-grid-tile colspan="4">
+            <mat-grid-tile-header style="background-color: white; color: black; font-size: x-large; justify-content: center;">
+                Truck Info
+            </mat-grid-tile-header>
+            <div class="controles-container">
+                <mat-form-field style="margin-top: 50px;">
+                    <mat-label>Truck Brand</mat-label>
+                    <mat-select formControlName="brand">
+                        <mat-option value="Mercedes-Benz">Mercedes-Benz</mat-option>
+                        <mat-option value="MAN">MAN</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="brand?.errors?.['required']">
+                        Truck Brand is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="maxVolume" matInput placeholder="Max Volume (litre)">
+                    <mat-error *ngIf="maxVolume?.errors?.['required']">
+                        Max Volume is required
+                    </mat-error>
+                    <mat-error *ngIf="maxVolume?.errors?.['pattern']">
+                        Doesn't respect the pattern ex: 2.13
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="maxWeight" matInput placeholder="Max Weight (to)">
+                    <mat-error *ngIf="maxWeight?.errors?.['required']">
+                        Max Weight is required
+                    </mat-error>
+                    <mat-error *ngIf="maxWeight?.errors?.['pattern']">
+                        Doesn't respect the pattern ex: 2.13
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="gauge" matInput placeholder="Gauge">
+                    <mat-error *ngIf="gauge?.errors?.['required']">
+                        Gauge is required
+                    </mat-error>
+                    <mat-error *ngIf="gauge?.errors?.['pattern']">
+                        Doesn't respect the pattern ex: 2.13
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="priceEmpty" matInput placeholder="Price per km when Empty">
+                    <mat-error *ngIf="priceEmpty?.errors?.['required']">
+                        Price per km when Empty is required
+                    </mat-error>
+                    <mat-error *ngIf="priceEmpty?.errors?.['pattern']">
+                        Doesn't respect the pattern ex: 2.13
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="priceFull" matInput placeholder="Price per km when Full">
+                    <mat-error *ngIf="priceFull?.errors?.['required']">
+                        Doesn't respect the pattern ex: 2.13
+                    </mat-error>
+                    <mat-error *ngIf="priceFull?.errors?.['pattern']">
+                        Doesn't respect the pattern ex: 2.13
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+            <mat-divider vertical style="height: 400px;"></mat-divider>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="4" >
+            <mat-grid-tile-header style="background-color: #ffffff; color: black; font-size: x-large; justify-content: center; margin-bottom: 5px;">
+                Offer Info
+            </mat-grid-tile-header>
+            <div class="controles-container" style="height: 295px;">
+                <mat-form-field>
+                    <input formControlName="departureDate" matInput [matDatepicker]="departure" placeholder="Departure Date">
+                    <mat-datepicker-toggle matSuffix [for]="departure"></mat-datepicker-toggle>
+                    <mat-datepicker #departure></mat-datepicker>
+                    <mat-error *ngIf="departureDate?.errors?.['required']">
+                        Departure Date is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="arrivalDate" matInput [matDatepicker]="arrival" placeholder="Arrival Date">
+                    <mat-datepicker-toggle matSuffix [for]="arrival"></mat-datepicker-toggle>
+                    <mat-datepicker #arrival></mat-datepicker>
+                    <mat-error *ngIf="arrivalDate?.errors?.['required']">
+                        Arrival Date is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="departureLocation" matInput placeholder="Departure Location">
+                    <mat-error *ngIf="departureLocation?.errors?.['required']">
+                        Departure Location is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="arrivalLocation" matInput placeholder="Arrival Location">
+                    <mat-error *ngIf="arrivalLocation?.errors?.['required']">
+                        Arrival Location is required
+                    </mat-error>
+                </mat-form-field>
+                <div class="center margin-top" style="justify-content: space-evenly;">
+                    <button mat-raised-button color="primary" type="submit" >
+                        Submit
+                    </button>
+                    <button mat-raised-button color="warn" (click)="clear()" type="reset">
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

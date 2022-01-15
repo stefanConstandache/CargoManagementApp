@@ -7,10 +7,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatSelectModule } from '@angular/material/select'
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table'
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HotToastModule } from '@ngneat/hot-toast';
@@ -28,10 +36,14 @@ import { CargodashboardComponent } from './components/dashboards/cargodashboard/
 import { HomeComponent } from './components/home/home.component';
 import { CrudService } from './services/crud.service';
 import { AuthenticationService } from './services/authentication.service';
+import { SellerformdialogComponent } from './components/sellerformdialog/sellerformdialog.component';
+import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
+import { ClientOffersComponent } from './components/client-offers/client-offers.component';
+import { ClientformdialogComponent } from './components/clientformdialog/clientformdialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, SignUpComponent, ClientdashboardComponent, AdmindashboardComponent, CargodashboardComponent, HomeComponent,
+    AppComponent, LoginComponent, SignUpComponent, ClientdashboardComponent, AdmindashboardComponent, CargodashboardComponent, HomeComponent, SellerformdialogComponent, SellerOffersComponent, ClientOffersComponent, ClientformdialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +64,16 @@ import { AuthenticationService } from './services/authentication.service';
     MatInputModule,
     MatMenuModule,
     MatSelectModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     ReactiveFormsModule,
+    FormsModule,
     HotToastModule.forRoot(),
   ],
   providers: [CrudService, AuthenticationService],

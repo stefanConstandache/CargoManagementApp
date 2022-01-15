@@ -1,4 +1,17 @@
-<div class="form-container mat-elevation-z5">
+<mat-toolbar color="primary">
+    Welcome to our platform
+
+    <ng-container>
+        <ng-template #loginButton>
+            <button mat-button routerLink="/">
+                <mat-icon>login</mat-icon>
+                Login
+            </button>
+        </ng-template>
+    </ng-container>
+</mat-toolbar>
+
+<div class="form-container mat-elevation-z5" style="margin-top: 32px;">
     <h1>Login</h1>
     <form [formGroup]="loginForm" (ngSubmit)="submit()">
         <mat-form-field>
