@@ -36,8 +36,8 @@ const routes: Routes = [
     ...canActivate(redirectToLogin),
     children: [
       { path: 'clientOffers', component: ClientOffersComponent },
-      { path: 'sellerOffers', component: SellerOffersComponent },
-      { path: '', redirectTo: 'sellerOffers', pathMatch: 'full' },
+      { path: 'transporterOffers', component: SellerOffersComponent },
+      { path: '', redirectTo: 'clientOffers', pathMatch: 'full' },
     ]
   },
   {
@@ -45,9 +45,9 @@ const routes: Routes = [
     component: CargodashboardComponent,
     ...canActivate(redirectToLogin),
     children: [
-      { path: 'sellerOffers', component: SellerOffersComponent },
+      { path: 'transporterOffers', component: SellerOffersComponent },
       { path: 'clientOffers', component: ClientOffersComponent },
-      { path: '', redirectTo: 'sellerOffers', pathMatch: 'full' },
+      { path: '', redirectTo: 'transporterOffers', pathMatch: 'full' },
     ]
   },
   {
