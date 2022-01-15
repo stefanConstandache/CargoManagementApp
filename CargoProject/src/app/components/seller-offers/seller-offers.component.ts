@@ -38,7 +38,8 @@ export class SellerOffersComponent implements OnInit {
         this.isClient = null;
         this.isSeller = true;
         this.displayedColumns = [
-          "owner",
+          "name",
+          "mobile",
           "departureDate",
           "arrivalDate",
           "departureLocation",
@@ -56,7 +57,8 @@ export class SellerOffersComponent implements OnInit {
 
         this.displayedColumns = [
           "actions",
-          "owner",
+          "name",
+          "mobile",
           "departureDate",
           "arrivalDate",
           "departureLocation",

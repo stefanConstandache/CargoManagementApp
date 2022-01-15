@@ -18,9 +18,13 @@
                 <button mat-raised-button color="primary">Take Offer</button>
             </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="owner">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Owner ID</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element.owner.id}}</mat-cell>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Client Name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="mobile">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Client Mobile Number</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.mobile}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="departureDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Departure Date</mat-header-cell>

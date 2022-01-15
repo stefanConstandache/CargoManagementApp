@@ -52,6 +52,8 @@ export class CrudService {
   }
 
   async createSellerOffer(
+    name: string,
+    mobile: string,
     departureDate: Date,
     arrivalDate: Date,
     departureLocation: string,
@@ -64,6 +66,8 @@ export class CrudService {
     priceFull: string,
   ) {
     let Offer = {
+      name: name,
+      mobile: mobile,
       departureDate: departureDate,
       arrivalDate: arrivalDate,
       departureLocation: departureLocation,
@@ -89,6 +93,8 @@ export class CrudService {
   }
 
   async createClientOffer(
+    name: string,
+    mobile: string,
     departureDate: Date,
     arrivalDate: Date,
     departureLocation: string,
@@ -99,6 +105,8 @@ export class CrudService {
     budget: string,
   ) {
     let Offer = {
+      name: name,
+      mobile: mobile,
       departureDate: departureDate,
       arrivalDate: arrivalDate,
       departureLocation: departureLocation,

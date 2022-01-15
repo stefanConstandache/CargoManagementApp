@@ -10,9 +10,14 @@ import { CrudService } from 'src/app/services/crud.service';
 })
 export class ClientformdialogComponent implements OnInit {
 
+  userData: any;
+
   constructor(private crud: CrudService, public dialogRef: MatDialogRef<ClientformdialogComponent>) { }
 
   ngOnInit(): void {
+    this.crud.userData.subscribe((data) => {
+      this.userData = data;
+    });
   }
 
   clientForm: FormGroup = new FormGroup({
@@ -94,6 +99,8 @@ export class ClientformdialogComponent implements OnInit {
     } = this.clientForm.value;
 
     this.crud.createClientOffer(
+      this.userData.name,
+      this.userData.mobile,
       departureDate,
       arrivalDate,
       departureLocation,

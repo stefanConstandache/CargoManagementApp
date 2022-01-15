@@ -10,9 +10,14 @@ import { CrudService } from 'src/app/services/crud.service';
 })
 export class SellerformdialogComponent implements OnInit {
 
+  userData: any;
+
   constructor(private crud: CrudService, public dialogRef: MatDialogRef<SellerformdialogComponent>) { }
 
   ngOnInit(): void {
+    this.crud.userData.subscribe((data) => {
+      this.userData = data;
+    });
   }
 
   sellerForm: FormGroup = new FormGroup({
@@ -107,7 +112,10 @@ export class SellerformdialogComponent implements OnInit {
       priceFull,
     } = this.sellerForm.value;
 
-    this.crud.createSellerOffer(departureDate,
+    this.crud.createSellerOffer(
+      this.userData.name,
+      this.userData.mobile,
+      departureDate,
       arrivalDate,
       departureLocation,
       arrivalLocation,
