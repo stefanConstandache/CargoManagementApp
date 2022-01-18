@@ -1,0 +1,52 @@
+
+html,
+body,
+#viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 98%;
+    width: 100%;
+    background-color: #3f51b5;
+}
+
+h2 {
+    text-emphasis: bold;
+    color: white;
+    align-self: center;
+    display: inline-block;
+    padding: 10px;
+}
+
+button {
+    background-color: #3f51b5;
+    /* Blue background */
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 12px 16px;
+    /* Some padding */
+    font-size: 16px;
+    /* Set a font size */
+    cursor: pointer;
+    /* Mouse pointer on hover */
+    display: right;
+    right: 0;
+    align-self: right;
+}
+
+.d-table {
+    display: table;
+}
+
+.d-table-cell {
+    display: table-cell;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.tar {
+    text-align: right;
+}
