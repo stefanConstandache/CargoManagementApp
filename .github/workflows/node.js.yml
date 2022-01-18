@@ -26,9 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - run: npm install
       working-directory: CargoProject
-    - run: npm run build --if-present
-      working-directory: CargoProject
-    - run: npm test
+    - run: npm start
       working-directory: CargoProject
