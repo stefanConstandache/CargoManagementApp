@@ -20,7 +20,6 @@ export class EsriMapComponent implements OnInit {
   private _zoom: number = 10;
   private _center: Array<number> = [0.1278, 51.5074];
   private _basemap: string = 'streets';
-  mapView: esri.MapView;
 
   @Input()
   set zoom(zoom: number) {
@@ -49,21 +48,14 @@ export class EsriMapComponent implements OnInit {
     return this._basemap;
   }
 
-  
-  constructor() { this.mapView = new esri.MapView({}); }
+  constructor() { }
 
   async initializeMap() {
     try {
       // setDefaultOptions({ version: '4.13' });
-      const [esriConfig, EsriMap, EsriMapView, Graphic, route, RouteParameters, FeatureSet] = await loadModules([
-        'esri/config',	
+      const [EsriMap, EsriMapView] = await loadModules([
         'esri/Map',
-        'esri/views/MapView',
-
-        "esri/Graphic",
-        "esri/rest/route",
-        "esri/rest/support/RouteParameters",
-        "esri/rest/support/FeatureSet"
+        'esri/views/MapView'
       ]);
 
       // Set type of map
@@ -81,82 +73,7 @@ export class EsriMapComponent implements OnInit {
         map: map
       };
 
-      esriConfig.apiKey = "AAPK4cb5ec502d454db49d8bd97b36fb6b91DvZ9a-RGRK_JZ3dNW7I7gjEZqhX1rTCnLuaWBRWYAGUUdwxNq1ygpC1iRoQdDvXY";
-      const routeUrl = "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World";
-      this.mapView = new EsriMapView(mapViewProperties);
-      const mapView = this.mapView;
-
-      function getRoute() {
-        const routeParams = new RouteParameters({
-          stops: new FeatureSet({
-            features: mapView.graphics.toArray()
-          }),
-  
-          returnDirections: true
-  
-        });
-  
-        route.solve(routeUrl, routeParams)
-          .then(function(data: { routeResults: any[]; }) {
-            data.routeResults.forEach(function(result) {
-              result.route.symbol = {
-                type: "simple-line",
-                color: [5, 150, 255],
-                width: 3
-              };
-              mapView.graphics.add(result.route);
-            });
-  
-            // Display directions
-           if (data.routeResults.length > 0) {
-             const directions = document.createElement("ol");
-            //  directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
-             directions.style.marginTop = "0";
-             directions.style.padding = "15px 15px 15px 30px";
-             const features = data.routeResults[0].directions.features;
-  
-             // Show each direction
-             features.forEach(function(result: { attributes: { text: string; length: number; }; },i: any){
-               const direction = document.createElement("li");
-               direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
-               directions.appendChild(direction);
-             });
-  
-             mapView.ui.empty("top-right");
-             mapView.ui.add(directions, "top-right");
-  
-           }
-  
-          })
-        }
-
-      function addGraphic(type: string, point: any) {
-        const graphic = new Graphic({
-          symbol: {
-            type: "simple-marker",
-            color: (type === "origin") ? "white" : "black",
-            size: "8px"
-          },
-          geometry: point
-        });
-        mapView.graphics.add(graphic);
-      }
-
-      mapView.on("click", function(event){
-
-        if (mapView.graphics.length === 0) {
-          addGraphic("origin", event.mapPoint);
-        } else if (mapView.graphics.length === 1) {
-          addGraphic("destination", event.mapPoint);
-  
-          getRoute(); // Call the route service
-  
-        } else {
-          mapView.graphics.removeAll();
-          addGraphic("origin",event.mapPoint);
-        }
-  
-      });
+      const mapView: esri.MapView = new EsriMapView(mapViewProperties);
 
       // All resources in the MapView and the map have loaded.
       // Now execute additional processes
@@ -166,7 +83,10 @@ export class EsriMapComponent implements OnInit {
     } catch (error) {
       alert('We have an error: ' + error);
     }
+
   }
+
+  
 
   ngOnInit() {
     this.initializeMap();
