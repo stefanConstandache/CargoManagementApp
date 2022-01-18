@@ -1,7 +1,12 @@
 <mat-toolbar color="primary">
     Welcome to our platform
 
+
     <ng-container>
+        <button mat-button routerLink="/map">
+            <mat-icon>map</mat-icon>
+            Map
+        </button>
         <button mat-button *ngIf="user"  [matMenuTriggerFor]="sellerMenu">
             <mat-icon>account_circle</mat-icon>
             {{user.email}}

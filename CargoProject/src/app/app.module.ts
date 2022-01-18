@@ -41,10 +41,25 @@ import { SellerOffersComponent } from './components/seller-offers/seller-offers.
 import { ClientOffersComponent } from './components/client-offers/client-offers.component';
 import { ClientformdialogComponent } from './components/clientformdialog/clientformdialog.component';
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
+import { ArcgisMapComponent } from './components/arcgis-map/arcgis-map.component';
+import { EsriMapComponent } from './components/arcgis-map/esri-map/esri-map.component';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, SignUpComponent, ClientdashboardComponent, AdmindashboardComponent, CargodashboardComponent, HomeComponent, SellerformdialogComponent, SellerOffersComponent, ClientOffersComponent, ClientformdialogComponent, MyOffersComponent,
+    AppComponent,
+    LoginComponent,
+    SignUpComponent,
+    ClientdashboardComponent,
+    AdmindashboardComponent,
+    CargodashboardComponent,
+    HomeComponent,
+    SellerformdialogComponent,
+    SellerOffersComponent,
+    ClientOffersComponent,
+    ClientformdialogComponent,
+    MyOffersComponent,
+    ArcgisMapComponent,
+    EsriMapComponent,
   ],
   imports: [
     BrowserModule,
