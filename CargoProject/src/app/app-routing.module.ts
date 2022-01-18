@@ -10,6 +10,7 @@ import { AdmindashboardComponent } from './components/dashboards/admindashboard/
 import { HomeComponent } from './components/home/home.component';
 import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
 import { ClientOffersComponent } from './components/client-offers/client-offers.component';
+import { ArcgisMapComponent } from './components/arcgis-map/arcgis-map.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectToHome = () => redirectLoggedInTo(['home']);
@@ -59,7 +60,12 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     ...canActivate(redirectToLogin)
-  }
+  },
+  {
+    path: 'map',
+    component: ArcgisMapComponent,
+    ...canActivate(redirectToLogin)
+  },
 ]
 
 @NgModule({
