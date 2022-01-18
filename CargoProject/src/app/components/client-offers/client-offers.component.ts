@@ -5,7 +5,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { SellerformdialogComponent } from '../sellerformdialog/sellerformdialog.component';
 import { ClientformdialogComponent } from '../clientformdialog/clientformdialog.component';
 
 @Component({
@@ -40,7 +39,7 @@ export class ClientOffersComponent implements OnInit {
         this.isSeller = null;
         this.displayedColumns = [
           "name",
-          "mobile",
+          "phoneNumber",
           "departureDate",
           "arrivalDate",
           "departureLocation",
@@ -56,7 +55,7 @@ export class ClientOffersComponent implements OnInit {
         this.displayedColumns = [
           "actions",
           "name",
-          "mobile",
+          "phoneNumber",
           "departureDate",
           "arrivalDate",
           "departureLocation",

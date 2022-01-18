@@ -114,7 +114,7 @@ export class SellerformdialogComponent implements OnInit {
 
     this.crud.createSellerOffer(
       this.userData.name,
-      this.userData.mobile,
+      this.userData.phoneNumber,
       departureDate,
       arrivalDate,
       departureLocation,

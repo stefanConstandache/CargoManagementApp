@@ -28,6 +28,16 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field>
+            <input matInput placeholder="Phone Number" formControlName="phoneNumber">
+            <mat-error *ngIf="phoneNumber?.errors?.['required']">
+                Phone number is required
+            </mat-error>
+            <mat-error *ngIf="phoneNumber?.errors?.['pattern']">
+                Please enter a correct phone number format /n
+                ex: 0723456789
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
             <input matInput placeholder="Password" formControlName="password" type="password">
             <mat-error *ngIf="password?.errors?.['required']">
                 Password is required

@@ -40,10 +40,11 @@ import { SellerformdialogComponent } from './components/sellerformdialog/sellerf
 import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
 import { ClientOffersComponent } from './components/client-offers/client-offers.component';
 import { ClientformdialogComponent } from './components/clientformdialog/clientformdialog.component';
+import { MyOffersComponent } from './components/my-offers/my-offers.component';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, SignUpComponent, ClientdashboardComponent, AdmindashboardComponent, CargodashboardComponent, HomeComponent, SellerformdialogComponent, SellerOffersComponent, ClientOffersComponent, ClientformdialogComponent,
+    AppComponent, LoginComponent, SignUpComponent, ClientdashboardComponent, AdmindashboardComponent, CargodashboardComponent, HomeComponent, SellerformdialogComponent, SellerOffersComponent, ClientOffersComponent, ClientformdialogComponent, MyOffersComponent,
   ],
   imports: [
     BrowserModule,

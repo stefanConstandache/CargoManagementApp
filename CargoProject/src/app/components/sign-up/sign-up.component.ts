@@ -32,6 +32,7 @@ export class SignUpComponent implements OnInit {
   signUpForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.email, Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern("[0-9]{,10}")]),
     password: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', Validators.required),
     userType: new FormControl('', Validators.required),
@@ -48,6 +49,10 @@ export class SignUpComponent implements OnInit {
 
   get name() {
     return this.signUpForm.get('name');
+  }
+
+  get phoneNumber() {
+    return this.signUpForm.get('phoneNumber');
   }
 
   get email() {
@@ -71,7 +76,7 @@ export class SignUpComponent implements OnInit {
       return;
     }
 
-    const { name, userType, email, password } = this.signUpForm.value;
+    const { name, userType, email, phoneNumber, password } = this.signUpForm.value;
     this.authService.signUp(email, password).pipe(
       this.toast.observe({
         success: 'Congrats! You are all signed up',
@@ -79,7 +84,7 @@ export class SignUpComponent implements OnInit {
         error: ({ message }) => `${message}`
       })
     ).subscribe(() => {
-      this.crud.createUser(name, email, userType);
+      this.crud.createUser(name, email, phoneNumber, userType);
       this.router.navigate(['/home']);
     });
   }
