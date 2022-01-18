@@ -36,10 +36,11 @@ export class CrudService {
     })
   }
 
-  createUser(name: string, email: string, userType: string) {
+  createUser(name: string, email: string, phoneNumber: string, userType: string) {
     let User = {
       name: name,
       email: email,
+      phoneNumber: phoneNumber,
       userType: userType,
       offers: [],
     };
@@ -53,7 +54,7 @@ export class CrudService {
 
   async createSellerOffer(
     name: string,
-    mobile: string,
+    phoneNumber: string,
     departureDate: Date,
     arrivalDate: Date,
     departureLocation: string,
@@ -66,8 +67,9 @@ export class CrudService {
     priceFull: string,
   ) {
     let Offer = {
+      id: "",
       name: name,
-      mobile: mobile,
+      phoneNumber: phoneNumber,
       departureDate: departureDate,
       arrivalDate: arrivalDate,
       departureLocation: departureLocation,
@@ -82,8 +84,9 @@ export class CrudService {
       owner: this.auth.currentUser?.uid,
     };
 
-    await this.firestore.collection("SellersOffers").add(Offer).then((result) => {
-      this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then((doc) => {
+    await this.firestore.collection("SellersOffers").add(Offer).then(async (result) => {
+      await this.firestore.collection("SellersOffers").doc(result.id).update({ "id": result.id });
+      await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then((doc) => {
         const data = doc.data() as any
         data.offers.push(result.id);
         this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": data.offers });
@@ -94,7 +97,7 @@ export class CrudService {
 
   async createClientOffer(
     name: string,
-    mobile: string,
+    phoneNumber: string,
     departureDate: Date,
     arrivalDate: Date,
     departureLocation: string,
@@ -105,8 +108,9 @@ export class CrudService {
     budget: string,
   ) {
     let Offer = {
+      id: "",
       name: name,
-      mobile: mobile,
+      phoneNumber: phoneNumber,
       departureDate: departureDate,
       arrivalDate: arrivalDate,
       departureLocation: departureLocation,
@@ -119,8 +123,9 @@ export class CrudService {
       owner: this.auth.currentUser?.uid,
     };
 
-    await this.firestore.collection("ClientsOffers").add(Offer).then((result) => {
-      this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then((doc) => {
+    await this.firestore.collection("ClientsOffers").add(Offer).then(async (result) => {
+      await this.firestore.collection("ClientsOffers").doc(result.id).update({ "id": result.id });
+      await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then((doc) => {
         const data = doc.data() as any
         data.offers.push(result.id);
         this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": data.offers });
@@ -130,11 +135,11 @@ export class CrudService {
   }
 
   getSellersOffers() {
-    this.sellersOffers = this.firestore.collection("SellersOffers").valueChanges();
+    this.sellersOffers = this.firestore.collection("SellersOffers", ref => ref.where("status", "==", "Pending")).valueChanges();
   }
 
   getClientsOffers() {
-    this.clientsOffers = this.firestore.collection("ClientsOffers").valueChanges();
+    this.clientsOffers = this.firestore.collection("ClientsOffers", ref => ref.where("status", "==", "Pending")).valueChanges();
   }
 
   async getMyOffers() {
@@ -143,6 +148,32 @@ export class CrudService {
     if (!this.myOffers) {
       this.myOffers = this.firestore.collection("ClientsOffers", ref => ref.where("owner", "==", uid)).valueChanges();
     }
+  }
+
+  async deleteClientOffer(id: string) {
+    await this.firestore.collection("ClientsOffers").doc(id).delete().then(async () => {
+      await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then(async (doc) => {
+        const data = doc.data() as any;
+        const filtered = data.offers.filter(function (value: string, index: number, arr: []) {
+          return value != id;
+        });
+
+        await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": filtered })
+      }).then(() => { this.toast.success("Entry deleted succesfully"); });
+    });
+  }
+
+  async deleteSellerOffer(id: string) {
+    await this.firestore.collection("SellersOffers").doc(id).delete().then(async () => {
+      await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then(async (doc) => {
+        const data = doc.data() as any;
+        const filtered = data.offers.filter(function (value: string, index: number, arr: []) {
+          return value != id;
+        });
+
+        await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": filtered })
+      }).then(() => { this.toast.success("Entry deleted succesfully"); });
+    });
   }
 
   redirect() {

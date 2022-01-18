@@ -10,6 +10,7 @@ import { AdmindashboardComponent } from './components/dashboards/admindashboard/
 import { HomeComponent } from './components/home/home.component';
 import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
 import { ClientOffersComponent } from './components/client-offers/client-offers.component';
+import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { ArcgisMapComponent } from './components/arcgis-map/arcgis-map.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['login']);
@@ -38,6 +39,7 @@ const routes: Routes = [
     children: [
       { path: 'clientOffers', component: ClientOffersComponent },
       { path: 'transporterOffers', component: SellerOffersComponent },
+      { path: 'myOffers', component: MyOffersComponent },
       { path: '', redirectTo: 'clientOffers', pathMatch: 'full' },
     ]
   },
@@ -48,6 +50,7 @@ const routes: Routes = [
     children: [
       { path: 'transporterOffers', component: SellerOffersComponent },
       { path: 'clientOffers', component: ClientOffersComponent },
+      { path: 'myOffers', component: MyOffersComponent },
       { path: '', redirectTo: 'transporterOffers', pathMatch: 'full' },
     ]
   },
