@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CrudService } from 'src/app/services/crud.service';
-
+import { GoogleMap} from '@angular/google-maps';
 @Component({
   selector: 'app-clientformdialog',
   templateUrl: './clientformdialog.component.html',
@@ -11,6 +11,13 @@ import { CrudService } from 'src/app/services/crud.service';
 export class ClientformdialogComponent implements OnInit {
 
   userData: any;
+  @ViewChild('departureLoc', { static: true })
+  searchElementRefDeparture!: ElementRef;
+  @ViewChild('arrivalLoc', { static: true })
+  searchElementRefArrival!: ElementRef;
+
+  @ViewChild(GoogleMap)
+  map!: GoogleMap;
 
   constructor(private crud: CrudService, public dialogRef: MatDialogRef<ClientformdialogComponent>) { }
 
@@ -18,6 +25,15 @@ export class ClientformdialogComponent implements OnInit {
     this.crud.userData.subscribe((data) => {
       this.userData = data;
     });
+  }
+  ngAfterViewInit(): void {
+    const searchBoxDeparture = new google.maps.places.SearchBox(
+      this.searchElementRefDeparture.nativeElement,
+    );
+    const searchBoxArrival = new google.maps.places.SearchBox(
+      this.searchElementRefArrival.nativeElement,
+    );
+  
   }
 
   clientForm: FormGroup = new FormGroup({
