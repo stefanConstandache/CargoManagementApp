@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CrudService } from 'src/app/services/crud.service';
 import { GoogleMap} from '@angular/google-maps';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-clientformdialog',
   templateUrl: './clientformdialog.component.html',
@@ -16,8 +17,10 @@ export class ClientformdialogComponent implements OnInit {
   @ViewChild('arrivalLoc', { static: true })
   searchElementRefArrival!: ElementRef;
 
-  @ViewChild(GoogleMap)
-  map!: GoogleMap;
+  arrivalName:string = "";
+  departureName:string = "";
+  arrivalCoordinates: [number,number] = [0.0,0.0];
+  departureCoordinates: [number,number] = [0.0,0.0];
 
   constructor(private crud: CrudService, public dialogRef: MatDialogRef<ClientformdialogComponent>) { }
 
@@ -33,7 +36,28 @@ export class ClientformdialogComponent implements OnInit {
     const searchBoxArrival = new google.maps.places.SearchBox(
       this.searchElementRefArrival.nativeElement,
     );
-  
+      searchBoxDeparture.addListener('places_changed',() =>{
+        const places = searchBoxDeparture.getPlaces();
+        if(places.length ===0) {
+          return;
+        }
+        const bounds = new google.maps.LatLngBounds();
+        this.departureName = places[0].name;
+        this.departureCoordinates[0] = places[0].geometry?.location.lat()!;
+        this.departureCoordinates[1] = places[0].geometry?.location.lng()!;
+      })
+
+      searchBoxArrival.addListener('places_changed',() =>{
+        const places = searchBoxArrival.getPlaces();
+        if(places.length ===0) {
+          return;
+        }
+        const bounds = new google.maps.LatLngBounds();
+        this.arrivalName = places[0].name;
+        this.arrivalCoordinates[0] = places[0].geometry?.location.lat()!;
+        this.arrivalCoordinates[1] = places[0].geometry?.location.lng()!;
+
+      })
   }
 
   clientForm: FormGroup = new FormGroup({
@@ -119,8 +143,8 @@ export class ClientformdialogComponent implements OnInit {
       this.userData.phoneNumber,
       departureDate,
       arrivalDate,
-      departureLocation,
-      arrivalLocation,
+      this.departureName,
+      this.arrivalName,
       cargoType,
       volume,
       weight,
