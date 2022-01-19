@@ -20,8 +20,8 @@ require([
     const view = new MapView({
         container: "viewDiv",
         map: map,
-        center: [-118.24532, 34.05398], //Longitude, latitude
-        zoom: 12
+        center: [25.4194, 45.7749], //Longitude, latitude
+        zoom: 6
     });
 
     const routeUrl = "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World";
