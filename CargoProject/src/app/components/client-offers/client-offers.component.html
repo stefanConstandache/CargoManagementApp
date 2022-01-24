@@ -1,7 +1,7 @@
-<h1>Clients Offers</h1>
+<h1 style="text-align: center; font-weight: bolder;">Delivery Requests</h1>
 <div class="search-div">
     <button mat-raised-button (click)="onCreate()" *ngIf="isClient">
-        <mat-icon>add</mat-icon> Create New Offer
+        <mat-icon>add</mat-icon> Create Delivery Request
     </button>
     <mat-form-field class="search-form-field" floatLabel="never">
         <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">

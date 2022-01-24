@@ -3,7 +3,7 @@
 
 
     <ng-container>
-        <button mat-button routerLink="/map">
+        <button *ngIf="this.router.url=='/client/myOffers'" mat-button routerLink="/map">
             <mat-icon>map</mat-icon>
             Map
         </button>
@@ -15,7 +15,7 @@
     </ng-container>
 </mat-toolbar>
 
-<div class="content">
+<div id="client-background" class="content">
     <router-outlet></router-outlet>
 </div>
 
@@ -26,14 +26,14 @@
     </button>
     <button mat-menu-item routerLink="clientOffers">
         <mat-icon>dashboard</mat-icon>
-        Client Offers
+        Delivery Requests
     </button>
     <button mat-menu-item routerLink="transporterOffers">
         <mat-icon>local_offer</mat-icon>
-        Transporters Offers
+        Transporters Delivery Routes
     </button>
     <button mat-menu-item routerLink="myOffers">
         <mat-icon>account</mat-icon>
-        My Offers
+        My Delivery Requests
     </button>
 </mat-menu>

@@ -2,7 +2,7 @@
     Welcome to our platform
 
     <ng-container>
-        <button mat-button routerLink="/map">
+        <button *ngIf="this.router.url=='/cargo/myOffers'" mat-button routerLink="/map">
             <mat-icon>map</mat-icon>
             Map
         </button>
@@ -14,7 +14,7 @@
     </ng-container>
 </mat-toolbar>
 
-<div class="content">
+<div id="transporter-background" class="content">
     <router-outlet></router-outlet>
 </div>
 
@@ -25,14 +25,14 @@
     </button>
     <button mat-menu-item routerLink="transporterOffers">
         <mat-icon>dashboard</mat-icon>
-        Transporters Offers
+        Transporters Delivery Routes
     </button>
     <button mat-menu-item routerLink="clientOffers">
         <mat-icon>local_offer</mat-icon>
-        Client Offers
+        Delivery Requests
     </button>
     <button mat-menu-item routerLink="myOffers">
         <mat-icon>account_profile</mat-icon>
-        My Offers
+        My Delivery Routes
     </button>
 </mat-menu>

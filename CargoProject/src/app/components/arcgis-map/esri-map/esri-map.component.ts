@@ -84,10 +84,7 @@ export class EsriMapComponent implements OnInit {
     } catch (error) {
       alert('We have an error: ' + error);
     }
-
   }
-
-  
 
   ngOnInit() {
     this.initializeMap();

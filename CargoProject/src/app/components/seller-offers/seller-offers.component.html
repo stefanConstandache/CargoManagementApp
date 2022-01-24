@@ -1,7 +1,7 @@
-<h1>Transporter Offers</h1>
+<h1 style="text-align: center; font-weight: bolder;">Transporters Delivery Routes</h1>
 <div class="search-div">
     <button mat-raised-button (click)="onCreate()" *ngIf="isSeller">
-        <mat-icon>add</mat-icon> Create New Offer
+        <mat-icon>add</mat-icon> Create Delivery Route
     </button>
     <mat-form-field class="search-form-field" floatLabel="never">
         <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
