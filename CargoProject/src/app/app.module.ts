@@ -43,6 +43,7 @@ import { ClientformdialogComponent } from './components/clientformdialog/clientf
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { ArcgisMapComponent } from './components/arcgis-map/arcgis-map.component';
 import { EsriMapComponent } from './components/arcgis-map/esri-map/esri-map.component';
+import { OngoingDeliveriesComponent } from './components/ongoing-deliveries/ongoing-deliveries.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { EsriMapComponent } from './components/arcgis-map/esri-map/esri-map.comp
     MyOffersComponent,
     ArcgisMapComponent,
     EsriMapComponent,
+    OngoingDeliveriesComponent,
   ],
   imports: [
     BrowserModule,

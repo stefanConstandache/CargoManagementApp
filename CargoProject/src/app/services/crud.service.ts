@@ -47,6 +47,7 @@ export class CrudService {
       phoneNumber: phoneNumber,
       userType: userType,
       offers: [],
+      acceptedOffers: [],
     };
 
     this.firestore.collection("Users").doc(this.auth.currentUser?.uid).set(User);
@@ -180,6 +181,46 @@ export class CrudService {
         await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": filtered })
       }).then(() => { this.toast.success("Entry deleted succesfully"); });
     });
+  }
+
+  async acceptSellerOffer(idOffer: string, idOwner: string) {
+    await this.firestore.collection("SellersOffers").doc(idOffer).update({ "status": "Ongoing" }).then(async () => {
+      await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then(async (doc) => {
+        const data = doc.data() as any;
+        data.acceptedOffers.push(idOffer);
+
+        await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "acceptedOffers": data.acceptedOffers })
+
+      });
+
+      await this.firestore.collection("Users").doc(idOwner).ref.get().then(async (doc) => {
+        const data = doc.data() as any;
+        data.acceptedOffers.push(idOffer);
+
+        await this.firestore.collection("Users").doc(idOwner).update({ "acceptedOffers": data.acceptedOffers })
+
+      });
+    }).then(() => { this.toast.success("Delivery accepted"); });
+  }
+
+  async acceptClientOffer(idOffer: string, idOwner: string) {
+    await this.firestore.collection("ClientsOffers").doc(idOffer).update({ "status": "Ongoing" }).then(async () => {
+      await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then(async (doc) => {
+        const data = doc.data() as any;
+        data.acceptedOffers.push(idOffer);
+
+        await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "acceptedOffers": data.acceptedOffers })
+
+      });
+
+      await this.firestore.collection("Users").doc(idOwner).ref.get().then(async (doc) => {
+        const data = doc.data() as any;
+        data.acceptedOffers.push(idOffer);
+
+        await this.firestore.collection("Users").doc(idOwner).update({ "acceptedOffers": data.acceptedOffers })
+
+      });
+    }).then(() => { this.toast.success("Delivery accepted"); });
   }
 
   redirect() {
