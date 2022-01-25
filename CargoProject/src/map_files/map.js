@@ -64,11 +64,9 @@ require([
         console.error(error);
     })});
     getUser.then(function(){
-        console.log(currentUser);
         dbRef.child(currentUser).get().then((snapshot)=>{
             if (snapshot.exists()) {      
                 snapshot.forEach(function(routeCoordinates){
-                    console.log(routeCoordinates.val()[0])
                     const point1 = {
                         type: "point",
                         longitude : routeCoordinates.val()[1],
@@ -81,7 +79,7 @@ require([
                      };
                      addGraphic("origin", point1);
                      addGraphic("destination", point2);
-                     getRoute(routeCoordinates.val()[0]);
+                     getRoute(routeCoordinates.val()[4]);
                      view.graphics.removeAll()
                 })
       
@@ -104,8 +102,7 @@ require([
         });
         view.graphics.add(graphic);
     }
-
-    function getRoute(colour) {
+    function getRoute(colors) {
         const routeParams = new RouteParameters({
             stops: new FeatureSet({
                 features: view.graphics.toArray()
@@ -120,7 +117,7 @@ require([
                 data.routeResults.forEach(function (result) {
                     result.route.symbol = {
                         type: "simple-line",
-                        color: [5, 150, 255],
+                        color:colors,
                         width: 3
                     };
                     view.graphics.add(result.route);

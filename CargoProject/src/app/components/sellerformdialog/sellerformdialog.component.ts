@@ -26,6 +26,10 @@ export class SellerformdialogComponent implements OnInit {
       this.userData = data;
     });
   }
+  random_rgb() {
+    var o = Math.round, r = Math.random, s = 255;
+    return [o(r()*s) , o(r()*s) , o(r()*s)];
+  }
   ngAfterViewInit(): void {
     const searchBoxDeparture = new google.maps.places.SearchBox(
       this.searchElementRefDeparture.nativeElement,
@@ -53,7 +57,7 @@ export class SellerformdialogComponent implements OnInit {
         this.arrivalName = places[0].name;
         this.crud.mapCoordinates[2] = places[0].geometry?.location.lat()!;
         this.crud.mapCoordinates[3] = places[0].geometry?.location.lng()!;
-
+        this.crud.mapCoordinates[4] = this.random_rgb();
       })
   }
   sellerForm: FormGroup = new FormGroup({

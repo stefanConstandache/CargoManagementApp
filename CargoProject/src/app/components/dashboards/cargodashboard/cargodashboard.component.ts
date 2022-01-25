@@ -36,7 +36,5 @@ export class CargodashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.db.list("user").set("currentUser",this.user?.email);
-
   }
 }
