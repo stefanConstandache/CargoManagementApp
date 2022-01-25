@@ -87,13 +87,13 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input formControlName="departureLocation" matInput placeholder="Departure Location">
+                    <input formControlName="departureLocation" matInput placeholder="Departure Location" #departureLoc>
                     <mat-error *ngIf="departureLocation?.errors?.['required']">
                         Departure Location is required
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input formControlName="arrivalLocation" matInput placeholder="Arrival Location">
+                    <input formControlName="arrivalLocation" matInput placeholder="Arrival Location" #arrivalLoc>
                     <mat-error *ngIf="arrivalLocation?.errors?.['required']">
                         Arrival Location is required
                     </mat-error>

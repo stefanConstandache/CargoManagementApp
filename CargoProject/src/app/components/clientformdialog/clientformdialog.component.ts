@@ -27,7 +27,6 @@ export class ClientformdialogComponent implements OnInit {
   ngOnInit(): void {
     this.crud.userData.subscribe((data) => {
       this.userData = data;
-      this.db.list("user").set("currentUser",data.name);
     });
   }
   ngAfterViewInit(): void {

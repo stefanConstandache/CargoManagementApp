@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   })
+  userData: any;
 
   constructor(
     private authService: AuthenticationService,
@@ -41,9 +42,7 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    this.crud.userData.subscribe((data) => {
-      this.db.list("user").set("currentUser",data.name);
-    });
+
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).pipe(
       this.toast.observe({
@@ -52,6 +51,11 @@ export class LoginComponent implements OnInit {
         error: ({ message }) => `There was an error: ${message} `
       })
     ).subscribe(() => {
+      this.crud.userData.subscribe((data) => {
+        this.userData = data;
+        this.db.list("user").set("currentUser",data.name);
+      });
+
       this.router.navigate(['/home']);
     });
   }

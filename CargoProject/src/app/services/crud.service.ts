@@ -93,6 +93,7 @@ export class CrudService {
       await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then((doc) => {
         const data = doc.data() as any
         data.offers.push(result.id);
+        this.db.list(name).set(result.id,this.mapCoordinates);
         this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": data.offers });
         this.toast.success("Offer Created Successfully");
       });
