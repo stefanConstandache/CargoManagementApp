@@ -6,7 +6,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard'
 import { ClientdashboardComponent } from './components/dashboards/clientdashboard/clientdashboard.component';
 import { CargodashboardComponent } from './components/dashboards/cargodashboard/cargodashboard.component';
-import { AdmindashboardComponent } from './components/dashboards/admindashboard/admindashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
 import { ClientOffersComponent } from './components/client-offers/client-offers.component';
@@ -53,11 +52,6 @@ const routes: Routes = [
       { path: 'myOffers', component: MyOffersComponent },
       { path: '', redirectTo: 'transporterOffers', pathMatch: 'full' },
     ]
-  },
-  {
-    path: 'admin',
-    component: AdmindashboardComponent,
-    ...canActivate(redirectToLogin)
   },
   {
     path: 'home',

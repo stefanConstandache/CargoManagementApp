@@ -1,4 +1,5 @@
-<h1>My Offers</h1>
+<h1 *ngIf="isClient" style="text-align: center; font-weight: bolder;">My Delivery Requests</h1>
+<h1 *ngIf="isSeller" style="text-align: center; font-weight: bolder;">My Delivery Routes</h1>
 <div class="search-div">
     <mat-form-field class="search-form-field" floatLabel="never">
         <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">

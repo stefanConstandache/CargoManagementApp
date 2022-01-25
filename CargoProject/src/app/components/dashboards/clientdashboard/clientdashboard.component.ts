@@ -15,7 +15,7 @@ export class ClientdashboardComponent implements OnInit {
 
   constructor(
     private auth: Auth,
-    private router: Router,
+    public router: Router,
     private toast: HotToastService,
     private authService: AuthenticationService,
   ) {

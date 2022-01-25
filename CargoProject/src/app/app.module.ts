@@ -32,7 +32,6 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ClientdashboardComponent } from './components/dashboards/clientdashboard/clientdashboard.component';
-import { AdmindashboardComponent } from './components/dashboards/admindashboard/admindashboard.component';
 import { CargodashboardComponent } from './components/dashboards/cargodashboard/cargodashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { CrudService } from './services/crud.service';
@@ -51,7 +50,6 @@ import { EsriMapComponent } from './components/arcgis-map/esri-map/esri-map.comp
     LoginComponent,
     SignUpComponent,
     ClientdashboardComponent,
-    AdmindashboardComponent,
     CargodashboardComponent,
     HomeComponent,
     SellerformdialogComponent,
