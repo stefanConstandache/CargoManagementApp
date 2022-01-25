@@ -40,7 +40,6 @@ const routes: Routes = [
       { path: 'clientOffers', component: ClientOffersComponent },
       { path: 'transporterOffers', component: SellerOffersComponent },
       { path: 'myOffers', component: MyOffersComponent },
-      { path: 'ongoingDeliveries', component: OngoingDeliveriesComponent },
       { path: '', redirectTo: 'clientOffers', pathMatch: 'full' },
     ]
   },
@@ -52,7 +51,6 @@ const routes: Routes = [
       { path: 'transporterOffers', component: SellerOffersComponent },
       { path: 'clientOffers', component: ClientOffersComponent },
       { path: 'myOffers', component: MyOffersComponent },
-      { path: 'ongoingDeliveries', component: OngoingDeliveriesComponent },
       { path: '', redirectTo: 'transporterOffers', pathMatch: 'full' },
     ]
   },

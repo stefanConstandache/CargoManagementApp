@@ -20,28 +20,24 @@ export class OngoingDeliveriesComponent implements OnInit {
   isSeller: any;
   isClient: any;
   userData: any;
-  ongoingDeliveries: Observable<any>; // List with Objects
-  ongoingDeliveriesData: any;
   ongoingDeliveriesList: MatTableDataSource<any>;
   displayedColumns: string[] = [];
 
   searchKey: string = "";
 
-  constructor(private auth: Auth, private crud: CrudService, private firestore: AngularFirestore,) {
+  constructor(private auth: Auth, private crud: CrudService) {
     this.ongoingDeliveriesList = new MatTableDataSource();
-    this.ongoingDeliveries = new Observable();
   }
 
   ngOnInit(): void {
     this.crud.userData.subscribe((data) => {
       this.userData = data;
 
+
       if (data.userType == "Client") {
         this.isClient = true;
         this.isSeller = null;
         this.displayedColumns = [
-          "actions",
-          "name",
           "status",
           "phoneNumber",
           "departureDate",
@@ -53,9 +49,7 @@ export class OngoingDeliveriesComponent implements OnInit {
         this.isSeller = true;
         this.isClient = null;
         this.displayedColumns = [
-          "actions",
           "status",
-          "name",
           "phoneNumber",
           "departureDate",
           "arrivalDate",
@@ -63,17 +57,19 @@ export class OngoingDeliveriesComponent implements OnInit {
           "arrivalLocation",
         ];
       }
-    });
 
-    this.ongoingDeliveries = this.firestore.collection("SellersOffers", ref => ref.where(ref.id, "in", this.userData.acceptedOffers)).valueChanges();
 
-    this.ongoingDeliveries.subscribe((data) => {
-      this.ongoingDeliveriesData = data;
-
-      this.ongoingDeliveriesList = new MatTableDataSource(this.ongoingDeliveriesData);
       this.ongoingDeliveriesList.sort = this.sort;
       this.ongoingDeliveriesList.paginator = this.paginator;
     });
   }
 
+  onSearchClear() {
+    this.searchKey = "";
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    this.ongoingDeliveriesList.filter = this.searchKey.trim().toLowerCase();
+  }
 }
