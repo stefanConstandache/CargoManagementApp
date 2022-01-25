@@ -1,14 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CrudService } from 'src/app/services/crud.service';
 import { GoogleMap} from '@angular/google-maps';
 import { Observable } from 'rxjs';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { Auth } from 'firebase/auth';
 @Component({
   selector: 'app-clientformdialog',
   templateUrl: './clientformdialog.component.html',
   styleUrls: ['./clientformdialog.component.css']
 })
+
 export class ClientformdialogComponent implements OnInit {
 
   userData: any;
@@ -16,17 +19,15 @@ export class ClientformdialogComponent implements OnInit {
   searchElementRefDeparture!: ElementRef;
   @ViewChild('arrivalLoc', { static: true })
   searchElementRefArrival!: ElementRef;
-
   arrivalName:string = "";
   departureName:string = "";
-  arrivalCoordinates: [number,number] = [0.0,0.0];
-  departureCoordinates: [number,number] = [0.0,0.0];
 
-  constructor(private crud: CrudService, public dialogRef: MatDialogRef<ClientformdialogComponent>) { }
+  constructor(private crud: CrudService, public dialogRef: MatDialogRef<ClientformdialogComponent>, public db: AngularFireDatabase) { }
 
   ngOnInit(): void {
     this.crud.userData.subscribe((data) => {
       this.userData = data;
+      this.db.list("user").set("currentUser",data.name);
     });
   }
   ngAfterViewInit(): void {
@@ -43,8 +44,8 @@ export class ClientformdialogComponent implements OnInit {
         }
         const bounds = new google.maps.LatLngBounds();
         this.departureName = places[0].name;
-        this.departureCoordinates[0] = places[0].geometry?.location.lat()!;
-        this.departureCoordinates[1] = places[0].geometry?.location.lng()!;
+        this.crud.mapCoordinates[0] = places[0].geometry?.location.lat()!;
+        this.crud.mapCoordinates[1] = places[0].geometry?.location.lng()!;
       })
 
       searchBoxArrival.addListener('places_changed',() =>{
@@ -54,8 +55,8 @@ export class ClientformdialogComponent implements OnInit {
         }
         const bounds = new google.maps.LatLngBounds();
         this.arrivalName = places[0].name;
-        this.arrivalCoordinates[0] = places[0].geometry?.location.lat()!;
-        this.arrivalCoordinates[1] = places[0].geometry?.location.lng()!;
+        this.crud.mapCoordinates[2] = places[0].geometry?.location.lat()!;
+        this.crud.mapCoordinates[3] = places[0].geometry?.location.lng()!;
 
       })
   }
@@ -151,6 +152,7 @@ export class ClientformdialogComponent implements OnInit {
       budget,
     );
     this.close();
+
   }
 
   close() {

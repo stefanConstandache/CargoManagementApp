@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { CrudService } from 'src/app/services/crud.service';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toast: HotToastService,
     private crud: CrudService,
+    public db: AngularFireDatabase
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +41,9 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-
+    this.crud.userData.subscribe((data) => {
+      this.db.list("user").set("currentUser",data.name);
+    });
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).pipe(
       this.toast.observe({

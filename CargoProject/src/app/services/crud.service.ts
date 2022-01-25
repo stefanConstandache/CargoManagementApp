@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -14,12 +15,14 @@ export class CrudService {
   myOffers: Observable<any>;
   clientsOffers: Observable<any>;
   sellersOffers: Observable<any>;
+  mapCoordinates: Observable<any>;
 
-  constructor(private firestore: AngularFirestore, private router: Router, private auth: Auth, private toast: HotToastService,) {
+  constructor(private firestore: AngularFirestore, private router: Router, private auth: Auth, private toast: HotToastService, public db: AngularFireDatabase) {
     this.userData = new Observable;
     this.myOffers = new Observable;
     this.clientsOffers = new Observable;
     this.sellersOffers = new Observable;
+    this.mapCoordinates = new Observable;
 
     this.auth.onAuthStateChanged((user) => {
       if (user) {
@@ -32,6 +35,7 @@ export class CrudService {
         this.myOffers = new Observable;
         this.clientsOffers = new Observable;
         this.sellersOffers = new Observable;
+        this.mapCoordinates = new Observable;
       }
     })
   }
@@ -127,6 +131,7 @@ export class CrudService {
       await this.firestore.collection("ClientsOffers").doc(result.id).update({ "id": result.id });
       await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then((doc) => {
         const data = doc.data() as any
+        this.db.list(name).set(result.id,this.mapCoordinates);
         data.offers.push(result.id);
         this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": data.offers });
         this.toast.success("Offer Created Successfully");

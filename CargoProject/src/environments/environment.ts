@@ -10,7 +10,8 @@ export const environment = {
     storageBucket: "cargo-management-4e50a.appspot.com",
     messagingSenderId: "1097151939401",
     appId: "1:1097151939401:web:9a6e54511306e455825098",
-    measurementId: "G-BG7G8D3TDQ"
+    measurementId: "G-BG7G8D3TDQ",
+    databaseURL: "https://cargo-management-4e50a-default-rtdb.europe-west1.firebasedatabase.app/"
   },
   production: false,
 };

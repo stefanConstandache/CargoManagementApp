@@ -30,6 +30,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ClientdashboardComponent } from './components/dashboards/clientdashboard/clientdashboard.component';
 import { AdmindashboardComponent } from './components/dashboards/admindashboard/admindashboard.component';
 import { CargodashboardComponent } from './components/dashboards/cargodashboard/cargodashboard.component';

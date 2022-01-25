@@ -101,6 +101,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "CargoProject:build:production",
+            "firebaseProject": "cargo-management-4e50a",
+            "firebaseHostingSite": "cargo-management-4e50a"
+          }
         }
       }
     }

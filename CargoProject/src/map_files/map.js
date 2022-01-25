@@ -1,20 +1,41 @@
+var config = {
+    apiKey: "AIzaSyA7luWGbMhIgXImE-ZnHWwWljs35kK6GRg",
+    authDomain: "cargo-management-4e50a.firebaseapp.com",
+    projectId: "cargo-management-4e50a",
+    storageBucket: "cargo-management-4e50a.appspot.com",
+    messagingSenderId: "1097151939401",
+    appId: "1:1097151939401:web:9a6e54511306e455825098",
+    measurementId: "G-BG7G8D3TDQ",
+    databaseURL: "https://cargo-management-4e50a-default-rtdb.europe-west1.firebasedatabase.app/"
+};
 
 require([
     "esri/config",
     "esri/Map",
     "esri/views/MapView",
+    "esri/layers/GraphicsLayer",
 
     "esri/Graphic",
     "esri/rest/route",
     "esri/rest/support/RouteParameters",
     "esri/rest/support/FeatureSet"
 
-], function (esriConfig, Map, MapView, Graphic, route, RouteParameters, FeatureSet) {
-
+], function (esriConfig, Map, MapView,GraphicsLayer, Graphic, route, RouteParameters, FeatureSet) {
+    const routeParams = new RouteParameters({
+        // An authorization string used to access the routing service
+        apiKey: "AAPK4cb5ec502d454db49d8bd97b36fb6b91DvZ9a-RGRK_JZ3dNW7I7gjEZqhX1rTCnLuaWBRWYAGUUdwxNq1ygpC1iRoQdDvXY",
+        stops: new FeatureSet(),
+        outSpatialReference: {
+          // autocasts as new SpatialReference()
+          wkid: 3857
+        }
+      });
     esriConfig.apiKey = "AAPK4cb5ec502d454db49d8bd97b36fb6b91DvZ9a-RGRK_JZ3dNW7I7gjEZqhX1rTCnLuaWBRWYAGUUdwxNq1ygpC1iRoQdDvXY";
 
+    const routeLayer = new GraphicsLayer();
     const map = new Map({
-        basemap: "arcgis-navigation" //Basemap layer service
+        basemap: "arcgis-navigation", //Basemap layer service
+        layers: [routeLayer]
     });
 
     const view = new MapView({
@@ -25,21 +46,51 @@ require([
     });
 
     const routeUrl = "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World";
+    firebase.initializeApp(config);
+    var database = firebase.database();
+    const dbRef = firebase.database().ref();
+    var currentUser;
 
-    view.on("click", function (event) {
-
-        if (view.graphics.length === 0) {
-            addGraphic("origin", event.mapPoint);
-        } else if (view.graphics.length === 1) {
-            addGraphic("destination", event.mapPoint);
-
-            getRoute(); // Call the route service
-
+    var getUser = new Promise (function(resolve, reject) {
+        dbRef.child("user").get().then((snapshot) => {
+        if (snapshot.exists()) {            
+                currentUser = snapshot.val().currentUser;
+                resolve();
         } else {
-            view.graphics.removeAll();
-            addGraphic("origin", event.mapPoint);
+            console.log("No data available");
+            reject();
         }
-
+    }).catch((error) => {
+        console.error(error);
+    })});
+    getUser.then(function(){
+        console.log(currentUser);
+        dbRef.child(currentUser).get().then((snapshot)=>{
+            if (snapshot.exists()) {      
+                snapshot.forEach(function(routeCoordinates){
+                    console.log(routeCoordinates.val()[0])
+                    const point1 = {
+                        type: "point",
+                        longitude : routeCoordinates.val()[1],
+                        latitude :  routeCoordinates.val()[0]
+                     };
+                     const point2 = {
+                        type: "point",
+                        longitude : routeCoordinates.val()[3],
+                        latitude :  routeCoordinates.val()[2]
+                     };
+                     addGraphic("origin", point1);
+                     addGraphic("destination", point2);
+                     getRoute(routeCoordinates.val()[0]);
+                     view.graphics.removeAll()
+                })
+      
+                
+        } else {
+            console.log("No data available");
+        }
+        });
+    
     });
 
     function addGraphic(type, point) {
@@ -54,7 +105,7 @@ require([
         view.graphics.add(graphic);
     }
 
-    function getRoute() {
+    function getRoute(colour) {
         const routeParams = new RouteParameters({
             stops: new FeatureSet({
                 features: view.graphics.toArray()
@@ -74,26 +125,6 @@ require([
                     };
                     view.graphics.add(result.route);
                 });
-
-                // Display directions
-                if (data.routeResults.length > 0) {
-                    const directions = document.createElement("ol");
-                    directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
-                    directions.style.marginTop = "0";
-                    directions.style.padding = "15px 15px 15px 30px";
-                    const features = data.routeResults[0].directions.features;
-
-                    // Show each direction
-                    features.forEach(function (result, i) {
-                        const direction = document.createElement("li");
-                        direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
-                        directions.appendChild(direction);
-                    });
-
-                    view.ui.empty("top-right");
-                    view.ui.add(directions, "top-right");
-
-                }
 
             })
 
