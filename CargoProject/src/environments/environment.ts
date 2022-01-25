@@ -13,7 +13,7 @@ export const environment = {
     measurementId: "G-BG7G8D3TDQ",
     databaseURL: "https://cargo-management-4e50a-default-rtdb.europe-west1.firebasedatabase.app/"
   },
-  production: false,
+  production: true,
 };
 
 /*
