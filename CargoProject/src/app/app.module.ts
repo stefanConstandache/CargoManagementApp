@@ -30,6 +30,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ClientdashboardComponent } from './components/dashboards/clientdashboard/clientdashboard.component';
 import { CargodashboardComponent } from './components/dashboards/cargodashboard/cargodashboard.component';
 import { HomeComponent } from './components/home/home.component';
@@ -42,6 +43,7 @@ import { ClientformdialogComponent } from './components/clientformdialog/clientf
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { ArcgisMapComponent } from './components/arcgis-map/arcgis-map.component';
 import { EsriMapComponent } from './components/arcgis-map/esri-map/esri-map.component';
+import { OngoingDeliveriesComponent } from './components/ongoing-deliveries/ongoing-deliveries.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { EsriMapComponent } from './components/arcgis-map/esri-map/esri-map.comp
     MyOffersComponent,
     ArcgisMapComponent,
     EsriMapComponent,
+    OngoingDeliveriesComponent,
   ],
   imports: [
     BrowserModule,

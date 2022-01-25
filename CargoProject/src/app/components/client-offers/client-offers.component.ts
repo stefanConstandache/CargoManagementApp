@@ -93,4 +93,8 @@ export class ClientOffersComponent implements OnInit {
   applyFilter() {
     this.clientsOffersList.filter = this.searchKey.trim().toLowerCase();
   }
+
+  onTakeOffer(idOffer: string, idOwner: string) {
+    this.crud.acceptClientOffer(idOffer, idOwner);
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -18,6 +19,7 @@ export class CargodashboardComponent implements OnInit {
     public router: Router,
     private toast: HotToastService,
     private authService: AuthenticationService,
+    public db: AngularFireDatabase
   ) {
   }
 

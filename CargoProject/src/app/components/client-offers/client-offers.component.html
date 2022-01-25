@@ -14,8 +14,8 @@
     <mat-table [dataSource]="clientsOffersList" matSort>
         <ng-container matColumnDef="actions" *ngIf="isSeller">
             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <button mat-raised-button color="primary">Take Offer</button>
+            <mat-cell *matCellDef="let element">
+                <button mat-raised-button color="primary" (click)="onTakeOffer(element.id, element.owner)">Take Offer</button>
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="name">

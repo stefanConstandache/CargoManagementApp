@@ -11,6 +11,7 @@ import { SellerOffersComponent } from './components/seller-offers/seller-offers.
 import { ClientOffersComponent } from './components/client-offers/client-offers.component';
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { ArcgisMapComponent } from './components/arcgis-map/arcgis-map.component';
+import { OngoingDeliveriesComponent } from './components/ongoing-deliveries/ongoing-deliveries.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectToHome = () => redirectLoggedInTo(['home']);
@@ -39,6 +40,7 @@ const routes: Routes = [
       { path: 'clientOffers', component: ClientOffersComponent },
       { path: 'transporterOffers', component: SellerOffersComponent },
       { path: 'myOffers', component: MyOffersComponent },
+      { path: 'ongoingDeliveries', component: OngoingDeliveriesComponent },
       { path: '', redirectTo: 'clientOffers', pathMatch: 'full' },
     ]
   },
@@ -50,6 +52,7 @@ const routes: Routes = [
       { path: 'transporterOffers', component: SellerOffersComponent },
       { path: 'clientOffers', component: ClientOffersComponent },
       { path: 'myOffers', component: MyOffersComponent },
+      { path: 'ongoingDeliveries', component: OngoingDeliveriesComponent },
       { path: '', redirectTo: 'transporterOffers', pathMatch: 'full' },
     ]
   },

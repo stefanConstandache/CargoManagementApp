@@ -98,4 +98,8 @@ export class SellerOffersComponent implements OnInit {
   applyFilter() {
     this.sellersOffersList.filter = this.searchKey.trim().toLowerCase();
   }
+
+  onTakeOffer(idOffer: string, idOwner: string) {
+    this.crud.acceptSellerOffer(idOffer, idOwner);
+  }
 }

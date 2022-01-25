@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "cargo-management-4e50a": {
+      "hosting": {
+        "CargoProject": [
+          "cargo-management-4e50a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "cargo-management-4e50a"
+  }
+}
