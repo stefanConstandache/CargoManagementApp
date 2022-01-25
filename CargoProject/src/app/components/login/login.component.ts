@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { CrudService } from 'src/app/services/crud.service';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toast: HotToastService,
     private crud: CrudService,
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    public auth: Auth
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class LoginComponent implements OnInit {
     ).subscribe(() => {
       this.crud.userData.subscribe((data) => {
         this.userData = data;
-        this.db.list("user").set("currentUser",data.name);
+        this.db.list("user").set("currentUser",this.auth.currentUser?.uid);
       });
 
       this.router.navigate(['/home']);

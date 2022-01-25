@@ -56,10 +56,14 @@ export class ClientformdialogComponent implements OnInit {
         this.arrivalName = places[0].name;
         this.crud.mapCoordinates[2] = places[0].geometry?.location.lat()!;
         this.crud.mapCoordinates[3] = places[0].geometry?.location.lng()!;
+        this.crud.mapCoordinates[4] = this.random_rgb();
 
       })
   }
-
+  random_rgb() {
+    var o = Math.round, r = Math.random, s = 255;
+    return [o(r()*s) , o(r()*s) , o(r()*s)];
+  }
   clientForm: FormGroup = new FormGroup({
     departureDate: new FormControl('', Validators.required),
     arrivalDate: new FormControl('', Validators.required),

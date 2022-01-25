@@ -94,7 +94,7 @@ export class CrudService {
       await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then((doc) => {
         const data = doc.data() as any
         data.offers.push(result.id);
-        this.db.list(name).set(result.id,this.mapCoordinates);
+        this.db.list(this.auth.currentUser?.uid!).set(result.id,this.mapCoordinates);
         this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": data.offers });
         this.toast.success("Offer Created Successfully");
       });
@@ -133,7 +133,7 @@ export class CrudService {
       await this.firestore.collection("ClientsOffers").doc(result.id).update({ "id": result.id });
       await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then((doc) => {
         const data = doc.data() as any
-        this.db.list(name).set(result.id,this.mapCoordinates);
+        this.db.list(this.auth.currentUser?.uid!).set(result.id,this.mapCoordinates);
         data.offers.push(result.id);
         this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "offers": data.offers });
         this.toast.success("Offer Created Successfully");
@@ -188,6 +188,10 @@ export class CrudService {
       await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then(async (doc) => {
         const data = doc.data() as any;
         data.acceptedOffers.push(idOffer);
+        
+        this.db.list("/"+ idOwner + "/"+idOffer).valueChanges().subscribe(details => {
+          this.db.list(this.auth.currentUser?.uid!).set(idOffer,details);
+        });
 
         await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "acceptedOffers": data.acceptedOffers })
 
@@ -208,7 +212,9 @@ export class CrudService {
       await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then(async (doc) => {
         const data = doc.data() as any;
         data.acceptedOffers.push(idOffer);
-
+        this.db.list("/"+ idOwner + "/"+idOffer).valueChanges().subscribe(details => {
+          this.db.list(this.auth.currentUser?.uid!).set(idOffer,details);
+        });
         await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({ "acceptedOffers": data.acceptedOffers })
 
       });
