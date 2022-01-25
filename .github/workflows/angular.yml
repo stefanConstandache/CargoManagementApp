@@ -23,9 +23,6 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: CargoProject
-      - name: Test
-        run: npm run test
-        working-directory: CargoProject
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v1
