@@ -1,14 +1,1 @@
-<mat-toolbar color="primary">
-    Realtime Map
-
-
-    <ng-container>
-        <button mat-button routerLink="/home">
-            <mat-icon>home</mat-icon>
-             Home
-        </button>
-    </ng-container>
-</mat-toolbar>
-
-    <app-esri-map [center]="mapCenter" [basemap]="basemapType" [zoom]="mapZoomLevel" (mapLoaded)="mapLoadedEvent($event)">
-    </app-esri-map>
+<div id="map" [style.width]="width" [style.height]="height"></div>

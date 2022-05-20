@@ -53,7 +53,7 @@
             <mat-label>Select an user type</mat-label>
             <mat-select formControlName="userType">
                 <mat-option value="Client">Client</mat-option>
-                <mat-option value="Seller">Seller</mat-option>
+                <mat-option value="Admin">Admin</mat-option>
             </mat-select>
             <mat-error *ngIf="userType?.errors?.['required']">
                 You must select a user type

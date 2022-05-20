@@ -6,78 +6,74 @@
             </mat-grid-tile-header>
             <div class="controles-container">
                 <mat-form-field style="margin-top: 50px;">
-                    <mat-label>Cargo Type</mat-label>
-                    <mat-select formControlName="cargoType">
-                        <mat-option value="Wood">Wood</mat-option>
-                        <mat-option value="Water">Water</mat-option>
-                        <mat-option value="Cars">Cars</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="cargoType?.errors?.['required']">
-                        Cargo Type is required
+                    <input formControlName="name" matInput placeholder="Name">
+                    <mat-error *ngIf="name?.errors?.['required']">
+                        Name is required
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field>
-                    <input formControlName="volume" matInput placeholder="Volume (litre)">
-                    <mat-error *ngIf="volume?.errors?.['required']">
-                        Volume is required
-                    </mat-error>
-                    <mat-error *ngIf="volume?.errors?.['pattern']">
-                        Doesn't respect the pattern ex: 2.13
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field >
-                    <input formControlName="weight" matInput placeholder="Weight (to)">
-                    <mat-error *ngIf="weight?.errors?.['required']">
-                        Weight is required
-                    </mat-error>
-                    <mat-error *ngIf="weight?.errors?.['pattern']">
-                        Doesn't respect the pattern ex: 2.13
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field >
-                    <input formControlName="budget" matInput placeholder="Buget">
-                    <mat-error *ngIf="budget?.errors?.['required']">
-                        Gauge is required
-                    </mat-error>
-                    <mat-error *ngIf="budget?.errors?.['pattern']">
-                        Doesn't respect the pattern ex: 2.13
-                    </mat-error>
-                </mat-form-field>
+            <mat-form-field>
+                <input formControlName="phone_number" matInput placeholder="Phone number">
+                <mat-error *ngIf="phone_number?.errors?.['required']">
+                    Phone number is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input formControlName="truck_number" matInput placeholder="Truck number">
+                <mat-error *ngIf="truck_number?.errors?.['required']">
+                    Truck number is required
+                </mat-error>
+            </mat-form-field>
+
+        <mat-form-field >
+            <input formControlName="weight" matInput placeholder="Weight (to)">
+            <mat-error *ngIf="weight?.errors?.['required']">
+                Weight is required
+            </mat-error>
+            <mat-error *ngIf="weight?.errors?.['pattern']">
+                Doesn't respect the pattern ex: 2.13
+            </mat-error>
+        </mat-form-field>
             </div>
         </mat-grid-tile>
         <mat-grid-tile colspan="1">
             <mat-divider vertical style="height: 300px;"></mat-divider>
         </mat-grid-tile>
         <mat-grid-tile colspan="4" >
-            <mat-grid-tile-header style="background-color: #ffffff; color: black; font-size: x-large; justify-content: center; margin-bottom: 5px;">
-                Offer Info
-            </mat-grid-tile-header>
             <div class="controles-container">
-                <mat-form-field style="margin-top: 50px;">
-                    <input formControlName="departureDate" matInput [matDatepicker]="departure" placeholder="Departure Date">
-                    <mat-datepicker-toggle matSuffix [for]="departure"></mat-datepicker-toggle>
-                    <mat-datepicker #departure></mat-datepicker>
-                    <mat-error *ngIf="departureDate?.errors?.['required']">
+                <mat-form-field >
+                    <mat-label>Cargo Type</mat-label>
+                    <mat-select formControlName="cargo_type">
+                        <mat-option value="Wood">Wood</mat-option>
+                        <mat-option value="Water">Water</mat-option>
+                        <mat-option value="Cars">Cars</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="cargo_type?.errors?.['required']">
+                        Cargo Type is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="cargo_description" matInput placeholder="Cargo description">
+                    <mat-error *ngIf="cargo_description?.errors?.['required']">
+                        Cargo description is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="departure_time" matInput [ngxMatDatetimePicker]="departure" placeholder="Departure Time">
+                    <mat-datepicker-toggle matSuffix [for]="$any(departure)"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #departure></ngx-mat-datetime-picker>
+                    <mat-error *ngIf="departure_time?.errors?.['required']">
                         Departure Date is required
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input formControlName="arrivalDate" matInput [matDatepicker]="arrival" placeholder="Arrival Date">
-                    <mat-datepicker-toggle matSuffix [for]="arrival"></mat-datepicker-toggle>
-                    <mat-datepicker #arrival></mat-datepicker>
-                    <mat-error *ngIf="arrivalDate?.errors?.['required']">
-                        Arrival Date is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <input formControlName="departureLocation" matInput placeholder="Departure Location" #departureLoc>
-                    <mat-error *ngIf="departureLocation?.errors?.['required']">
+                    <input formControlName="departure_location" matInput placeholder="Departure Location" #departureLoc>
+                    <mat-error *ngIf="departure_location?.errors?.['required']">
                         Departure Location is required
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input formControlName="arrivalLocation" matInput placeholder="Arrival Location" #arrivalLoc>
-                    <mat-error *ngIf="arrivalLocation?.errors?.['required']">
+                    <input formControlName="arrival_location" matInput placeholder="Arrival Location" #arrivalLoc>
+                    <mat-error *ngIf="arrival_location?.errors?.['required']">
                         Arrival Location is required
                     </mat-error>
                 </mat-form-field>

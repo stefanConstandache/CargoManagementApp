@@ -17,7 +17,7 @@ export class ClientOffersComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
 
   user = this.auth.currentUser;
-  isSeller: any;
+  isAdmin: any;
   isClient: any;
   userData: any;
   clientsOffers: any; // List with Objects
@@ -33,43 +33,27 @@ export class ClientOffersComponent implements OnInit {
   ngOnInit(): void {
     this.crud.userData.subscribe((data) => {
       this.userData = data;
+        if(this.userData.userType=="Admin") {
+            this.isAdmin = true
+        }
+        this.displayedColumns = [
+            "actions",
+            "name" ,
+            "phoneNumber" ,
+            "truckNumber",
+            "departureDate",
+            "departureLocation",
+            "arrivalLocation",
+            "weight",
+            "cargoType",
+            "cargoDescription",
+        ];
 
-      if (data.userType == "Client") {
-        this.isClient = true;
-        this.isSeller = null;
-        this.displayedColumns = [
-          "name",
-          "phoneNumber",
-          "departureDate",
-          "arrivalDate",
-          "departureLocation",
-          "arrivalLocation",
-          "cargoType",
-          "volume",
-          "weight",
-          "budget",
-        ];
-      } else if (data.userType == "Seller") {
-        this.isSeller = true;
-        this.isClient = null;
-        this.displayedColumns = [
-          "actions",
-          "name",
-          "phoneNumber",
-          "departureDate",
-          "arrivalDate",
-          "departureLocation",
-          "arrivalLocation",
-          "cargoType",
-          "volume",
-          "weight",
-          "budget",
-        ];
-      }
+
     });
 
     this.crud.clientsOffers.subscribe((data) => {
-      this.clientsOffers = data;
+      this.clientsOffers = data["transports"];
 
       this.clientsOffersList = new MatTableDataSource(this.clientsOffers);
       this.clientsOffersList.sort = this.sort;
@@ -93,8 +77,11 @@ export class ClientOffersComponent implements OnInit {
   applyFilter() {
     this.clientsOffersList.filter = this.searchKey.trim().toLowerCase();
   }
+    onDelete(id: any) {
+      console.log(id)
+        if (confirm("Are you sure you want to delete this entry?")) {
+            this.crud.deleteClientOffer(id);
+        }
+    }
 
-  onTakeOffer(idOffer: string, idOwner: string) {
-    this.crud.acceptClientOffer(idOffer, idOwner);
-  }
 }

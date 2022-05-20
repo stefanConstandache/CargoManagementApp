@@ -98,13 +98,9 @@ export class MyOffersComponent implements OnInit {
     this.myOffersList.filter = this.searchKey.trim().toLowerCase();
   }
 
-  onDelete(id: any) {
-    if (confirm("Are you sure you want to delete this entry?")) {
-      if (this.isClient) {
-        this.crud.deleteClientOffer(id);
-      } else if (this.isSeller) {
-        this.crud.deleteSellerOffer(id);
-      }
+    onDelete(id: any) {
+        if (confirm("Are you sure you want to delete this entry?")) {
+            this.crud.deleteClientOffer(id);
+        }
     }
-  }
 }

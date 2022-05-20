@@ -9,6 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -36,14 +41,15 @@ import { CargodashboardComponent } from './components/dashboards/cargodashboard/
 import { HomeComponent } from './components/home/home.component';
 import { CrudService } from './services/crud.service';
 import { AuthenticationService } from './services/authentication.service';
-import { SellerformdialogComponent } from './components/sellerformdialog/sellerformdialog.component';
-import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
+// import { SellerformdialogComponent } from './components/sellerformdialog/sellerformdialog.component';
+// import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
 import { ClientOffersComponent } from './components/client-offers/client-offers.component';
 import { ClientformdialogComponent } from './components/clientformdialog/clientformdialog.component';
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { ArcgisMapComponent } from './components/arcgis-map/arcgis-map.component';
 import { EsriMapComponent } from './components/arcgis-map/esri-map/esri-map.component';
 import { OngoingDeliveriesComponent } from './components/ongoing-deliveries/ongoing-deliveries.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -53,8 +59,8 @@ import { OngoingDeliveriesComponent } from './components/ongoing-deliveries/ongo
     ClientdashboardComponent,
     CargodashboardComponent,
     HomeComponent,
-    SellerformdialogComponent,
-    SellerOffersComponent,
+    // SellerformdialogComponent,
+    // SellerOffersComponent,
     ClientOffersComponent,
     ClientformdialogComponent,
     MyOffersComponent,
@@ -92,6 +98,10 @@ import { OngoingDeliveriesComponent } from './components/ongoing-deliveries/ongo
     ReactiveFormsModule,
     FormsModule,
     HotToastModule.forRoot(),
+      HttpClientModule,
+NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   providers: [CrudService, AuthenticationService],
   bootstrap: [AppComponent]

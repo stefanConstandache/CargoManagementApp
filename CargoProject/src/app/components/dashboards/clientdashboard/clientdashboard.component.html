@@ -3,10 +3,7 @@
 
 
     <ng-container>
-        <button mat-button *ngIf="this.router.url=='/client/myOffers'" onclick="location.href = 'esri-map.html';">
-            <mat-icon>map</mat-icon>
-            Map
-        </button>
+
         <button mat-button *ngIf="user"  [matMenuTriggerFor]="sellerMenu">
             <mat-icon>account_circle</mat-icon>
             {{user.email}}
@@ -24,16 +21,12 @@
         <mat-icon>logout</mat-icon>
         Logout
     </button>
-    <button mat-menu-item routerLink="clientOffers">
+    <button mat-menu-item routerLink="transports">
         <mat-icon>dashboard</mat-icon>
-        Delivery Requests
+        All Transports
     </button>
-    <button mat-menu-item routerLink="transporterOffers">
-        <mat-icon>local_offer</mat-icon>
-        Transporters Delivery Routes
-    </button>
-    <button mat-menu-item routerLink="myOffers">
-        <mat-icon>account_circle</mat-icon>
-        My Delivery Requests
+    <button mat-menu-item routerLink="map">
+        <mat-icon>map</mat-icon>
+        Map
     </button>
 </mat-menu>
