@@ -150,6 +150,8 @@ export class ArcgisMapComponent {
                                         map.addObjects([routeOutline, routeArrows]);
                                         routeLine.routeData = transport["departure_location"] + '-' + transport["arrival_location"]
                                         routeLine.addEventListener('tap', ArcgisMapComponent.logEvent);
+                                        point.routeData = transport["departure_location"] + '-' + transport["arrival_location"]
+                                        point.addEventListener('tap', ArcgisMapComponent.logEvent)
                                         // Create a marker for the start point:
                                         let startMarker = new H.map.Marker(section.departure.place.location);
 
@@ -161,6 +163,11 @@ export class ArcgisMapComponent {
 
                                         // Set the map's viewport to make the whole route visible:
                                         map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
+                                        startMarker.routeData = transport["departure_location"] + '-' + transport["arrival_location"]
+                                        endMarker.routeData = transport["departure_location"] + '-' + transport["arrival_location"]
+                                        startMarker.addEventListener('tap', ArcgisMapComponent.logEvent)
+                                        endMarker.addEventListener('tap', ArcgisMapComponent.logEvent)
+
                                     });
                                 }
 

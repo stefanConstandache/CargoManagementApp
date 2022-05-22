@@ -5,13 +5,10 @@ import {LoginComponent} from './components/login/login.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {canActivate, redirectUnauthorizedTo, redirectLoggedInTo} from '@angular/fire/auth-guard'
 import {ClientdashboardComponent} from './components/dashboards/clientdashboard/clientdashboard.component';
-import {CargodashboardComponent} from './components/dashboards/cargodashboard/cargodashboard.component';
 import {HomeComponent} from './components/home/home.component';
 // import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
 import {ClientOffersComponent} from './components/client-offers/client-offers.component';
-import {MyOffersComponent} from './components/my-offers/my-offers.component';
 import {ArcgisMapComponent} from './components/arcgis-map/arcgis-map.component';
-import {OngoingDeliveriesComponent} from './components/ongoing-deliveries/ongoing-deliveries.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectToHome = () => redirectLoggedInTo(['home']);
@@ -39,20 +36,8 @@ const routes: Routes = [
         children: [
             {path: 'transports', component: ClientOffersComponent},
             // { path: 'transporterOffers', component: SellerOffersComponent },
-            {path: 'myOffers', component: MyOffersComponent},
             {path: 'map', component: ArcgisMapComponent},
             {path: '', redirectTo: 'transports', pathMatch: 'full'},
-        ]
-    },
-    {
-        path: 'cargo',
-        component: CargodashboardComponent,
-        ...canActivate(redirectToLogin),
-        children: [
-            // { path: 'transporterOffers', component: SellerOffersComponent },
-            {path: 'clientOffers', component: ClientOffersComponent},
-            {path: 'myOffers', component: MyOffersComponent},
-            {path: '', redirectTo: 'transporterOffers', pathMatch: 'full'},
         ]
     },
     {

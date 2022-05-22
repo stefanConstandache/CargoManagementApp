@@ -37,7 +37,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ClientdashboardComponent } from './components/dashboards/clientdashboard/clientdashboard.component';
-import { CargodashboardComponent } from './components/dashboards/cargodashboard/cargodashboard.component';
+// import { CargodashboardComponent } from './components/dashboards/cargodashboard/cargodashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { CrudService } from './services/crud.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -45,10 +45,8 @@ import { AuthenticationService } from './services/authentication.service';
 // import { SellerOffersComponent } from './components/seller-offers/seller-offers.component';
 import { ClientOffersComponent } from './components/client-offers/client-offers.component';
 import { ClientformdialogComponent } from './components/clientformdialog/clientformdialog.component';
-import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { ArcgisMapComponent } from './components/arcgis-map/arcgis-map.component';
 import { EsriMapComponent } from './components/arcgis-map/esri-map/esri-map.component';
-import { OngoingDeliveriesComponent } from './components/ongoing-deliveries/ongoing-deliveries.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -57,16 +55,14 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     SignUpComponent,
     ClientdashboardComponent,
-    CargodashboardComponent,
+    // CargodashboardComponent,
     HomeComponent,
     // SellerformdialogComponent,
     // SellerOffersComponent,
     ClientOffersComponent,
     ClientformdialogComponent,
-    MyOffersComponent,
     ArcgisMapComponent,
     EsriMapComponent,
-    OngoingDeliveriesComponent,
   ],
   imports: [
     BrowserModule,

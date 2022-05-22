@@ -37,7 +37,6 @@ export class ClientOffersComponent implements OnInit {
             this.isAdmin = true
         }
         this.displayedColumns = [
-            "actions",
             "name" ,
             "phoneNumber" ,
             "truckNumber",
@@ -48,8 +47,8 @@ export class ClientOffersComponent implements OnInit {
             "cargoType",
             "cargoDescription",
         ];
-
-
+        if(this.isAdmin)
+            this.displayedColumns.push("actions")
     });
 
     this.crud.clientsOffers.subscribe((data) => {

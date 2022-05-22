@@ -43,9 +43,11 @@
                 <mat-form-field >
                     <mat-label>Cargo Type</mat-label>
                     <mat-select formControlName="cargo_type">
-                        <mat-option value="Wood">Wood</mat-option>
+                        <mat-option value="Medicine">Medicine</mat-option>
                         <mat-option value="Water">Water</mat-option>
-                        <mat-option value="Cars">Cars</mat-option>
+                        <mat-option value="Food">Food</mat-option>
+                        <mat-option value="Clothing">Clothing</mat-option>
+                        <mat-option value="Other">Other</mat-option>
                     </mat-select>
                     <mat-error *ngIf="cargo_type?.errors?.['required']">
                         Cargo Type is required

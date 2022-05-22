@@ -29,7 +29,6 @@ export class CrudService {
         this.auth.onAuthStateChanged((user) => {
             if (user) {
                 this.getUserData();
-                this.getMyOffers();
                 this.getClientsOffers();
             } else {
                 this.userData = new Observable;
@@ -92,17 +91,10 @@ export class CrudService {
 
     getClientsOffers() {
 
-        this.clientsOffers  = this.http.get<any>('http://127.0.0.1:5000/gettransports')
+        this.clientsOffers = this.http.get<any>('http://127.0.0.1:5000/gettransports')
 
     }
 
-    async getMyOffers() {
-        let uid = this.auth.currentUser?.uid;
-        this.myOffers = this.firestore.collection("SellersOffers", ref => ref.where("owner", "==", uid)).valueChanges();
-        if (!this.myOffers) {
-            this.myOffers = this.firestore.collection("ClientsOffers", ref => ref.where("owner", "==", uid)).valueChanges();
-        }
-    }
 
     async deleteClientOffer(id: string) {
         console.log(id)
@@ -117,23 +109,6 @@ export class CrudService {
         });
         window.location.reload();
     }
-
-    async deleteSellerOffer(id: string) {
-        await this.firestore.collection("SellersOffers").doc(id).delete().then(async () => {
-            await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).ref.get().then(async (doc) => {
-                const data = doc.data() as any;
-                const filtered = data.offers.filter(function (value: string, index: number, arr: []) {
-                    return value != id;
-                });
-
-                await this.firestore.collection("Users").doc(this.auth.currentUser?.uid).update({"offers": filtered})
-            }).then(() => {
-                this.toast.success("Entry deleted succesfully");
-            });
-        });
-    }
-
-
 
     redirect() {
         this.userData.subscribe((data) => {
